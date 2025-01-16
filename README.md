@@ -62,7 +62,7 @@ directory (usually `~/.config/OpenMusicSync/config.toml`). See
 
 ## Usage
 
-`open-music-sync main.py source target`
+`open-music-sync source target`
 
 Note that your current queue will be replaced without any prompts.
 
