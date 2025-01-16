@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "open-music-sync"
+version = "0.0.1"
+description = "Synchronize music playback between different players"
+readme = "README.md"
+authors = [{ name = "Emil Hammarberg", email = "emilhammarberg@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+	"License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+	"Programming Language :: Python",
+	"Programming Language :: Python :: 3",
+	"Topic :: Multimedia :: Sound/Audio",
+]
+keywords = ["music", "synchronization", "mpd", "subsonic", "jellyfin"]
+dependencies = ["requests", "python-mpd2", "xdg-base-dirs"]
+requires-python = ">=3.11"
+
+[project.optional-dependencies]
+dev = ["mypy", "pip-tools"]
+
+[project.urls]
+Homepage = "https://github.com/emiham/open-music-sync"
+
+[project.scripts]
+open-music-sync = "oms.__main__:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[[tool.mypy.overrides]]
+module = "mpd.*"
+ignore_errors = true
+follow_untyped_imports = true
