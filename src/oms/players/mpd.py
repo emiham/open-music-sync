@@ -25,6 +25,7 @@ class MPD(Player):
 
     def get_queue(self):
         queue = self.Queue()
+
         for entry in self.client.playlistinfo():
             queue.songs.append(
                 Player.Song(
@@ -33,15 +34,22 @@ class MPD(Player):
                     album=entry["album"],
                 )
             )
-        queue.position = float(self.client.status()["elapsed"])
-        queue.index = int(self.client.status()["song"])
+
+        if "elapsed" in self.client.status():
+            queue.position = float(self.client.status()["elapsed"])
+
+        if "song" in self.client.status():
+            queue.index = int(self.client.status()["song"])
+
+        self.client.disconnect()
+
         return queue
 
     def enqueue(self, queue):
-        self.client.clear()
+        if len(queue.songs) > 0:
+            self.client.clear()
+            for song in queue.songs:
+                self.client.add(song.path)
 
-        for song in queue.songs:
-            self.client.add(song.path)
-
-        self.client.seek(queue.index, queue.position)
-        self.client.disconnect()
+            self.client.seek(queue.index, queue.position)
+            self.client.disconnect()

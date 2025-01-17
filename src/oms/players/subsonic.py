@@ -47,52 +47,53 @@ class Subsonic(Player):
         return queue
 
     def enqueue(self, queue: Player.Queue) -> None:
-        song_ids = []
+        if len(queue.songs) > 0:
+            song_ids = []
 
-        # Unfortunately we can't query by MBID or path, so we have to search a
-        # bit to find the right song
-        for queued_song in queue.songs:
-            song_found = False
-            artists = requests.get(
-                f"{self.host}/rest/search3",
-                params={"query": f"{queued_song.albumartist}"} | self.params,
-            ).json()["subsonic-response"]["searchResult3"]["artist"]
+            # Unfortunately we can't query by MBID or path, so we have to search a
+            # bit to find the right song
+            for queued_song in queue.songs:
+                song_found = False
+                artists = requests.get(
+                    f"{self.host}/rest/search3",
+                    params={"query": f"{queued_song.albumartist}"} | self.params,
+                ).json()["subsonic-response"]["searchResult3"]["artist"]
 
-            artist_ids = [artist["id"] for artist in artists]
+                artist_ids = [artist["id"] for artist in artists]
 
-            for artist_id in artist_ids:
-                if song_found:
-                    break
-                albums = requests.get(
-                    f"{self.host}/rest/getArtist",
-                    params={"id": artist_id} | self.params,
-                ).json()["subsonic-response"]["artist"]["album"]
-
-                for album in albums:
+                for artist_id in artist_ids:
                     if song_found:
                         break
-                    if album["album"] == queued_song.album:
-                        songs = requests.get(
-                            f"{self.host}/rest/getAlbum",
-                            params={"id": album["id"]} | self.params,
-                        ).json()["subsonic-response"]["album"]["song"]
+                    albums = requests.get(
+                        f"{self.host}/rest/getArtist",
+                        params={"id": artist_id} | self.params,
+                    ).json()["subsonic-response"]["artist"]["album"]
 
-                        for song in songs:
-                            if song["path"] == queued_song.path:
-                                song_ids.append(song["id"])
-                                song_found = True
+                    for album in albums:
+                        if song_found:
+                            break
+                        if album["album"] == queued_song.album:
+                            songs = requests.get(
+                                f"{self.host}/rest/getAlbum",
+                                params={"id": album["id"]} | self.params,
+                            ).json()["subsonic-response"]["album"]["song"]
 
-        current_id = song_ids[queue.index]
+                            for song in songs:
+                                if song["path"] == queued_song.path:
+                                    song_ids.append(song["id"])
+                                    song_found = True
 
-        response = requests.get(
-            f"{self.host}/rest/savePlayQueue",
-            params={
-                "id": song_ids,
-                "current": current_id,
-                "position": int(queue.position * 1000),
-            }
-            | self.params,
-        ).json()["subsonic-response"]
+            current_id = song_ids[queue.index]
 
-        if not response["status"] == "ok":
-            raise Exception(response)
+            response = requests.get(
+                f"{self.host}/rest/savePlayQueue",
+                params={
+                    "id": song_ids,
+                    "current": current_id,
+                    "position": int(queue.position * 1000),
+                }
+                | self.params,
+            ).json()["subsonic-response"]
+
+            if not response["status"] == "ok":
+                raise Exception(response)
