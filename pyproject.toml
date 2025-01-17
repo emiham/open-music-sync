@@ -34,6 +34,13 @@ package-dir = { "" = "src" }
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[bumpver]
+current_version = "0.0.2"
+version_pattern = "MAJOR.MINOR.PATCH"
+
+[bumpver.file_patterns]
+"pyproject.toml" = ['version = "{version}"$']
+
 [[tool.mypy.overrides]]
 module = "mpd.*"
 ignore_errors = true
