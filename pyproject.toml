@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "open-music-sync"
-version = "0.0.1"
+version = "0.0.2"
 description = "Synchronize music playback between different players"
 readme = "README.md"
 authors = [{ name = "Emil Hammarberg", email = "emilhammarberg@gmail.com" }]
