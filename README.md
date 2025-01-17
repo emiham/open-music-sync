@@ -41,6 +41,7 @@ far they are untested.
 #### Clients
 
 - Jellyfin Web
+- [Finamp](https://github.com/jmshrv/finamp)
 - Open an issue if you've tried any other players so they can be added to this
   list.
 
