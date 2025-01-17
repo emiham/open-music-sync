@@ -31,6 +31,12 @@ class Jellyfin(Player):
         for session in sessions:
             if "NowPlayingItem" in session:
                 queue.index = session["NowPlayingItem"]["IndexNumber"] - 1
+
+            # It seems that this list is not populated when only playing one item.
+            # TODO Look deeper into this. Tested with 3:30 in Houston on Finamp.
+            if len(session["NowPlayingQueueFullItems"]) == 0:
+                session["NowPlayingQueueFullItems"] = [session["NowPlayingItem"]]
+
             for item in session["NowPlayingQueueFullItems"]:
                 queue.songs.append(
                     Player.Song(
