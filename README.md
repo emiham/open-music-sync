@@ -14,23 +14,23 @@ Lets you seamlessly continue playback on different self-hosted music players.
 #### Servers
 
 - [gonic](https://github.com/sentriz/gonic) works.
-- [Navidrome](https://www.navidrome.org/) does not work, because they don't
+- [Navidrome](https://www.navidrome.org/) does not work, because it doesn't
 expose real file paths.
 - Other server implementations that expose real file paths should work, but so
 far they are untested.
 
 #### Clients
 
-- [airsonic-refix](https://github.com/tamland/airsonic-refix) works seamlessly.
-- [DSub2000](https://github.com/paroj/DSub2000) works, and will ask you to load
-  the queue when you start it up.
-- [Tempo](https://github.com/CappielloAntonio/tempo) does not currently work ([issue](https://github.com/CappielloAntonio/tempo/issues/336)).
-- [Youamp](https://github.com/siper/Youamp) will save its position, but won't
-load, so you can only sync one way
-([issue](https://github.com/siper/Youamp/issues/316)).
-- [Ultrasonic](https://gitlab.com/ultrasonic/ultrasonic) does not work.
-- Open an issue if you've tried any other players so they can be added to this
-  list.
+|                                                              | Platform | Saves queue | Loads queue                                                        |
+|--------------------------------------------------------------|----------|-------------|--------------------------------------------------------------------|
+| [airsonic-refix](https://github.com/tamland/airsonic-refix)  | Browser  | Yes         | Yes                                                                |
+| [DSub2000](https://github.com/paroj/DSub2000)                | Android  | Yes         | Yes                                                                |
+| [Tempo](https://github.com/CappielloAntonio/tempo)           | Android  | No          | No ([issue](https://github.com/CappielloAntonio/tempo/issues/336)  |
+| [Youamp](https://github.com/siper/Youamp)                    | Android  | Yes         | No ([issue](https://github.com/siper/Youamp/issues/316))           |
+| [Ultrasonic](https://gitlab.com/ultrasonic/ultrasonic)       | Android  | No          | No                                                                 |
+
+ Open an issue if you've tried any other players so they can be added to this 
+ list.
 
 ### [Jellyfin](https://jellyfin.org/)
 
@@ -41,6 +41,7 @@ load, so you can only sync one way
 #### Clients
 
 - Jellyfin Web
+- [Finamp](https://github.com/jmshrv/finamp)
 - Open an issue if you've tried any other players so they can be added to this
   list.
 
@@ -62,7 +63,7 @@ directory (usually `~/.config/OpenMusicSync/config.toml`). See
 
 ## Usage
 
-`open-music-sync main.py source target`
+`open-music-sync source target`
 
 Note that your current queue will be replaced without any prompts.
 
