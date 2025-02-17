@@ -14,8 +14,9 @@ Lets you seamlessly continue playback on different self-hosted music players.
 #### Servers
 
 - [gonic](https://github.com/sentriz/gonic) works.
-- [Navidrome](https://www.navidrome.org/) does not work, because it doesn't
-expose real file paths.
+- [Navidrome](https://www.navidrome.org/) works if you enable *Report Real
+Path* in the settings for both OMS and all other clients you want to be able
+to sync.
 - Other server implementations that expose real file paths should work, but so
 far they are untested.
 
