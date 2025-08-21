@@ -22,13 +22,13 @@ far they are untested.
 
 #### Clients
 
-|                                                              | Platform | Saves queue | Loads queue                                                        |
-|--------------------------------------------------------------|----------|-------------|--------------------------------------------------------------------|
-| [airsonic-refix](https://github.com/tamland/airsonic-refix)  | Browser  | Yes         | Yes                                                                |
-| [DSub2000](https://github.com/paroj/DSub2000)                | Android  | Yes         | Yes                                                                |
-| [Tempo](https://github.com/CappielloAntonio/tempo)           | Android  | No          | No ([issue](https://github.com/CappielloAntonio/tempo/issues/336)  |
-| [Youamp](https://github.com/siper/Youamp)                    | Android  | Yes         | No ([issue](https://github.com/siper/Youamp/issues/316))           |
-| [Ultrasonic](https://gitlab.com/ultrasonic/ultrasonic)       | Android  | No          | No                                                                 |
+|                                                              | Platform | Saves queue | Loads queue                                                                                                                  |
+|--------------------------------------------------------------|----------|-------------|------------------------------------------------------------------------------------------------------------------------------|
+| [airsonic-refix](https://github.com/tamland/airsonic-refix)  | Browser  | Yes         | Yes                                                                                                                          |
+| [DSub2000](https://github.com/paroj/DSub2000)                | Android  | Yes         | Yes                                                                                                                          |
+| [Tempo](https://github.com/CappielloAntonio/tempo)           | Android  | No          | No ([issue](https://github.com/CappielloAntonio/tempo/issues/336), [fork issue](https://github.com/eddyizm/tempo/issues/47)) |
+| [Youamp](https://github.com/siper/Youamp)                    | Android  | Yes         | No ([issue](https://github.com/siper/Youamp/issues/316))                                                                     |
+| [Ultrasonic](https://gitlab.com/ultrasonic/ultrasonic)       | Android  | No          | No                                                                                                                           |
 
  Open an issue if you've tried any other players so they can be added to this 
  list.
