@@ -27,7 +27,7 @@ far they are untested.
 | [airsonic-refix](https://github.com/tamland/airsonic-refix)    | Browser    | ✅            | ✅                                                                                                                             |
 | [DSub2000](https://github.com/paroj/DSub2000)                  | Android    | ✅            | ✅                                                                                                                             |
 | [Tempus](https://github.com/eddyizm/tempo)                     | Android    | ✅            | ✅                                                                                                                             |
-| [Tempo](https://github.com/CappielloAntonio/tempo)             | Android    | ❌            | ❌ [issue](https://github.com/CappielloAntonio/tempo/issues/336)                                                               |
+| [Tempo](https://github.com/CappielloAntonio/tempo)             | Android    | ❌            | ❌ ([issue](https://github.com/CappielloAntonio/tempo/issues/336))                                                             |
 | [Youamp](https://github.com/siper/Youamp)                      | Android    | ✅            | ✅                                                                                                                             |
 | [Ultrasonic](https://gitlab.com/ultrasonic/ultrasonic)         | Android    | ❌            | ❌ ([issue](https://gitlab.com/ultrasonic/ultrasonic/-/issues/1267))                                                           |
 
