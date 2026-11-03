@@ -1,5 +1,3 @@
-from pprint import pprint
-
 import requests
 
 from .player import Player
@@ -20,41 +18,48 @@ class Jellyfin(Player):
 
         """
         self.host = f"{host}"
-        self.headers = {"X-Emby-Authorization": f"MediaBrowser Token={token}"}
+        self.headers = {"Authorization": f'MediaBrowser Token="{token}"'}
         self.music_directory = music_directory
 
     def get_queue(self) -> Player.Queue:
         queue = self.Queue()
-        indices = []
 
         sessions = requests.get(f"{self.host}/Sessions", headers=self.headers).json()
 
         # TODO Handle multiple sessions
         for session in sessions:
-            if "NowPlayingItem" in session:
-                queue.index = session["NowPlayingItem"]["IndexNumber"] - 1
+            if "NowPlayingItem" not in session:
+                continue
+
+            ids = [entry["Id"] for entry in session.get("NowPlayingQueue", [])]
+            print(ids)
 
             # It seems that this list is not populated when only playing one item.
             # TODO Look deeper into this. Tested with 3:30 in Houston on Finamp.
-            if len(session["NowPlayingQueueFullItems"]) == 0:
-                session["NowPlayingQueueFullItems"] = [session["NowPlayingItem"]]
+            if len(ids) == 0:
+                ids = [session["NowPlayingItem"]["Id"]]
 
-            for item in session["NowPlayingQueueFullItems"]:
+            items = requests.get(
+                f"{self.host}/Items",
+                params={"Ids": ",".join(ids), "Fields": "Path"},
+                headers=self.headers,
+            ).json()["Items"]
+            paths = {item["Id"]: item["Path"] for item in items}
+
+            for i, item_id in enumerate(ids):
                 queue.songs.append(
                     Player.Song(
-                        path=item["Path"].replace(f"{self.music_directory}/", "")
+                        path=paths[item_id].replace(f"{self.music_directory}/", "")
                     )
                 )
-                indices.append(item["IndexNumber"])
+                if item_id == session["NowPlayingItem"]["Id"]:
+                    queue.index = i
 
             if "PlayState" in session and "PositionTicks" in session["PlayState"]:
                 queue.position = session["PlayState"]["PositionTicks"] / 10000000
-
-        queue.songs = [
-            song for (_, song) in sorted(zip(indices, queue.songs), key=lambda x: x[0])
-        ]
 
         return queue
 
     def enqueue(self, queue: Player.Queue) -> None:
         super().enqueue(queue)
+        raise NotImplementedError
