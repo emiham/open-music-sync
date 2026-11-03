@@ -1,6 +1,8 @@
-from .player import Player
-import requests
 from pprint import pprint
+
+import requests
+
+from .player import Player
 
 
 class Jellyfin(Player):
@@ -45,9 +47,8 @@ class Jellyfin(Player):
                 )
                 indices.append(item["IndexNumber"])
 
-            if "PlayState" in session:
-                if "PositionTicks" in session["PlayState"]:
-                    queue.position = session["PlayState"]["PositionTicks"] / 10000000
+            if "PlayState" in session and "PositionTicks" in session["PlayState"]:
+                queue.position = session["PlayState"]["PositionTicks"] / 10000000
 
         queue.songs = [
             song for (_, song) in sorted(zip(indices, queue.songs), key=lambda x: x[0])
