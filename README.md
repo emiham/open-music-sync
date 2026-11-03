@@ -37,7 +37,7 @@ far they are untested.
 
 > [!NOTE]  
 > Currently you can only get the queue from Jellyfin, not the other way. This
-> will be added in a future update.
+> will be added in a [future](https://github.com/emiham/open-music-sync/issues/4) update.
 
 #### Clients
 
