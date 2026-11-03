@@ -1,6 +1,7 @@
-from .player import Player
-from ..constants import APP_NAME
 import requests
+
+from ..constants import APP_NAME
+from .player import Player
 
 
 class Subsonic(Player):
