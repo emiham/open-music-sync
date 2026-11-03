@@ -12,7 +12,7 @@ from oms.players.subsonic import Subsonic
 from .constants import APP_NAME, PLAYERS
 
 
-def __create_parser():
+def _create_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "-d", "--daemon", help="Run in daemon mode", action="store_true"
@@ -28,7 +28,7 @@ def __create_parser():
     return parser
 
 
-def __create_player(player_type: str, config):
+def _create_player(player_type: str, config):
     """
     Creates a player to read queue from or send queue to.
 
@@ -80,22 +80,27 @@ def load_config(filename="config.toml"):
 
 def main():
     """Runs the program."""
+    parser = _create_parser()
+    args = parser.parse_args()
+
     config = load_config()
-    args = __create_parser().parse_args()
-    source_player = __create_player(args.source_player, config)
+    source_player = _create_player(args.source_player, config)
 
     if args.daemon:
-        if not (args.source_player and args.target_player):
-            raise Exception
+        if not args.target_player:
+            parser.error("daemon mode requires a target player")
 
-        target_player = __create_player(args.target_player, config)
+        target_player = _create_player(args.target_player, config)
+
         try:
             source_player.daemon(target_player.enqueue)
+        except NotImplementedError:
+            parser.error(f"{args.source_player} does not support daemon mode")
         except KeyboardInterrupt:
             pass
 
     elif args.target_player:
-        target_player = __create_player(args.target_player, config)
+        target_player = _create_player(args.target_player, config)
         target_player.enqueue(source_player.get_queue())
 
     else:
