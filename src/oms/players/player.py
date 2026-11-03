@@ -60,6 +60,10 @@ class Player(ABC):
             The new queue.
         """
 
+    def daemon(self, _) -> Queue:
+        """Continuously update the queue. Currently only available for MPD."""
+        raise NotImplementedError
+
     def print_queue(self) -> None:
         """Print the current queue."""
         queue: Player.Queue = self.get_queue()

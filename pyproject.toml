@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "open-music-sync"
-version = "0.0.2"
+version = "0.1.0"
 description = "Synchronize music playback between different players"
 readme = "README.md"
-authors = [{ name = "Emil Hammarberg", email = "emilhammarberg@gmail.com" }]
+authors = [{ name = "Emil Hammarberg", email = "emilhammarberg@mailbox.org" }]
 license = { file = "LICENSE" }
 classifiers = [
 	"License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
@@ -35,7 +35,7 @@ package-dir = { "" = "src" }
 where = ["src"]
 
 [bumpver]
-current_version = "0.0.2"
+current_version = "0.1.0"
 version_pattern = "MAJOR.MINOR.PATCH"
 
 [bumpver.file_patterns]

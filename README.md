@@ -30,7 +30,7 @@ far they are untested.
 | [Youamp](https://github.com/siper/Youamp)                    | Android  | ✅          | ❌ ([issue](https://github.com/siper/Youamp/issues/316))                                                                     |
 | [Ultrasonic](https://gitlab.com/ultrasonic/ultrasonic)       | Android  | ❌          | ❌ ([issue](https://gitlab.com/ultrasonic/ultrasonic/-/issues/1267))                                                         |
 
- Open an issue if you've tried any other players so they can be added to this 
+ Open an issue if you've tried any other players so they can be added to this
  list.
 
 ### [Jellyfin](https://jellyfin.org/)
@@ -70,6 +70,11 @@ Note that your current queue will be replaced without any prompts.
 
 You can run the program with only a source argument to print the information
 that would be sent to a target.
+
+There is also a daemon mode for MPD:
+`open-music-sync -d MPD target`
+This will update the queue whenever MPD starts/stops playing, or when the
+playlist is updated.
 
 ### Configuration
 
