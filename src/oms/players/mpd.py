@@ -29,8 +29,8 @@ class MPD(Player):
     def get_queue(self):
         return asyncio.run(self._get_queue())
 
-    def enqueue(self, queue):
-        asyncio.run(self._enqueue(queue))
+    def _enqueue(self, queue):
+        asyncio.run(self._async_enqueue(queue))
 
     def daemon(self, callback):
         asyncio.run(self._daemon(callback))
@@ -56,7 +56,7 @@ class MPD(Player):
         finally:
             client.disconnect()
 
-    async def _enqueue(self, queue):
+    async def _async_enqueue(self, queue):
         if not queue.songs:
             return
         client = await self._connect()

@@ -1,6 +1,7 @@
-from .player import Player
-from ..constants import APP_NAME
 import requests
+
+from ..constants import APP_NAME
+from .player import Player
 
 
 class Subsonic(Player):
@@ -30,7 +31,7 @@ class Subsonic(Player):
         queue = self.Queue()
 
         response = requests.get(
-            f"{self.host}/rest/getPlayQueue", params=self.params
+            f"{self.host}/rest/getPlayQueue", params=self.params, timeout=10
         ).json()["subsonic-response"]
 
         if response:
@@ -46,7 +47,7 @@ class Subsonic(Player):
 
         return queue
 
-    def enqueue(self, queue: Player.Queue) -> None:
+    def _enqueue(self, queue: Player.Queue) -> None:
         if len(queue.songs) > 0:
             song_ids = []
 
@@ -57,6 +58,7 @@ class Subsonic(Player):
                 artists = requests.get(
                     f"{self.host}/rest/search3",
                     params={"query": f"{queued_song.albumartist}"} | self.params,
+                    timeout=10,
                 ).json()["subsonic-response"]["searchResult3"]["artist"]
 
                 artist_ids = [artist["id"] for artist in artists]
@@ -67,6 +69,7 @@ class Subsonic(Player):
                     albums = requests.get(
                         f"{self.host}/rest/getArtist",
                         params={"id": artist_id} | self.params,
+                        timeout=10,
                     ).json()["subsonic-response"]["artist"]["album"]
 
                     for album in albums:
@@ -76,6 +79,7 @@ class Subsonic(Player):
                             songs = requests.get(
                                 f"{self.host}/rest/getAlbum",
                                 params={"id": album["id"]} | self.params,
+                                timeout=10,
                             ).json()["subsonic-response"]["album"]["song"]
 
                             for song in songs:
@@ -93,6 +97,7 @@ class Subsonic(Player):
                     "position": int(queue.position * 1000),
                 }
                 | self.params,
+                timeout=10,
             ).json()["subsonic-response"]
 
             if not response["status"] == "ok":

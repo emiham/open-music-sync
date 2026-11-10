@@ -1,6 +1,8 @@
-from .player import Player
-import requests
 from pprint import pprint
+
+import requests
+
+from .player import Player
 
 
 class Jellyfin(Player):
@@ -55,5 +57,5 @@ class Jellyfin(Player):
 
         return queue
 
-    def enqueue(self, queue: Player.Queue) -> None:
-        super().enqueue(queue)
+    def _enqueue(self, queue: Player.Queue) -> None:
+        super()._enqueue(queue)

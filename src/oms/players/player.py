@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
 
+from requests.exceptions import RequestException
+
 
 class Player(ABC):
     """
@@ -49,7 +51,7 @@ class Player(ABC):
         return self.Queue()
 
     @abstractmethod
-    def enqueue(self, queue: Queue) -> None:
+    def _enqueue(self, queue: Queue) -> None:
         """
         Replace the current queue with a new one, and seek to the new index and
         position.
@@ -59,6 +61,12 @@ class Player(ABC):
         queue : Queue
             The new queue.
         """
+
+    def enqueue(self, queue: Queue):
+        try:
+            self._enqueue(queue)
+        except RequestException as e:
+            print(f"Could not update queue: {e}")
 
     def daemon(self, _) -> Queue:
         """Continuously update the queue. Currently only available for MPD."""
